@@ -1,0 +1,43 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Thu Aug 17 14:18:39 2017
+
+@author: shimizu
+"""
+
+from bs4 import BeautifulSoup
+html= """
+<html><body>
+<div id ="main-goods" role="page">	
+	<h1>フルーツ野菜</h1>
+	<ul id="fr-list">
+		<li class="red green" data-lo="jp">リンゴ</li>
+		<li class="purple" data-lo="us">ブドウ</li>
+		<li class="yellow" data-lo="us">レモン</li>
+		<li class="yellow" data-lo="jp">オレンジ</li>
+  
+	</ul>
+	<ul id="ve-list">
+		<li class="white green" data-lo="jp">ダイコン</li>
+		<li class="red,green" data-lo="us">パプリカ</li>
+		<li class="black" data-lo="jp">ナス</li>
+		<li class="black" data-lo="us">アボガド</li>
+		<li class="white" daya-lo="cn">レンコン</li>
+	</ul>
+</div>
+</body></html>
+
+
+"""
+
+soup = BeautifulSoup(html,"html.parser")
+
+#print(soup.select_one("li:nth-of-type(8)").string)
+#print(soup.select_one("#ve-list > li:nth-of-type(4)").string)
+#print(soup.select("#ve-list > li[data-lo='us']")[1].string)
+print(soup.find_all("li")[7].string)
+print(soup.select("#ve-list > li.black")[1].string)
+
+cond={"data-lo":"us", "class":"black"}
+print(soup.find("li",cond).string)
+print(soup.find(id="ve-list").find("li",cond).string)
